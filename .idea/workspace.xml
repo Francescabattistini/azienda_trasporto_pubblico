@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9ded1ce-1d47-4efb-a867-b07d8c616441" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Abbonamenti.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Biglietto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Tessera.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Utenti.java" afterDir="false" />
-    </list>
+    <list default="true" id="a9ded1ce-1d47-4efb-a867-b07d8c616441" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
