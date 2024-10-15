@@ -1,10 +1,9 @@
-package Entities;
+package francescaBattistini.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.util.UUID;
 @Entity
 @Table(name="autobus")
 public class Autobus {

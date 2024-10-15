@@ -1,8 +1,7 @@
-package Entities;
+package francescaBattistini.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 import java.util.UUID;
 @Entity
 @Table(name = "tratta")
