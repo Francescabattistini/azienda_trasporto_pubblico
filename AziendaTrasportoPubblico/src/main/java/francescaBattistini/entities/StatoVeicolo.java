@@ -14,24 +14,23 @@ public class StatoVeicolo {
     private LocalDate inizio;
     @Column(name="fine",nullable = false)
     private LocalDate fine;
-    //@Enumerated(EnumType.STRING)
-    //private StatoType statotype;
-    // ENUM DA AGGIUNGERE AL COSTRUTTO E SET
+    @Enumerated(EnumType.STRING)
+    private StatoVeicolo statotype;
 
     public StatoVeicolo() {
 
     }
 
-    public StatoVeicolo(UUID id, LocalDate inizio, LocalDate fine) {
+    public StatoVeicolo(UUID id, LocalDate inizio, LocalDate fine, StatoVeicolo statotype) {
         this.id = id;
         this.inizio = inizio;
         this.fine = fine;
+        this.statotype = statotype;
     }
 
     public UUID getId() {
         return id;
     }
-
 
     public LocalDate getInizio() {
         return inizio;
@@ -49,12 +48,21 @@ public class StatoVeicolo {
         this.fine = fine;
     }
 
+    public StatoVeicolo getStatotype() {
+        return statotype;
+    }
+
+    public void setStatotype(StatoVeicolo statotype) {
+        this.statotype = statotype;
+    }
+
     @Override
     public String toString() {
         return "StatoVeicolo{" +
                 "id=" + id +
                 ", inizio=" + inizio +
                 ", fine=" + fine +
+                ", statotype=" + statotype +
                 '}';
     }
 }

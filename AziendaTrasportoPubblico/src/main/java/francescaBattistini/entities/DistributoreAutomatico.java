@@ -1,14 +1,14 @@
 package francescaBattistini.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import francescaBattistini.Enum.StatoDistributore;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "distributori_automatici")
 public class DistributoreAutomatico extends Rivenditore{
 
-//    private Enum stato;
+    @Enumerated(EnumType.STRING)
+    private StatoDistributore stato;
     @Column(name = "is_touchscreen")
     private boolean isTouchScreen;
     @Column(name = "cards_accepted")
@@ -16,10 +16,19 @@ public class DistributoreAutomatico extends Rivenditore{
 
     public DistributoreAutomatico() {}
 
-    public DistributoreAutomatico(long id, String localita, boolean isTouchScreen, boolean cardsAccepted) {
+    public DistributoreAutomatico(long id, String localita, StatoDistributore stato, boolean isTouchScreen, boolean cardsAccepted) {
         super(id, localita);
+        this.stato = stato;
         this.isTouchScreen = isTouchScreen;
         this.cardsAccepted = cardsAccepted;
+    }
+
+    public StatoDistributore getStato() {
+        return stato;
+    }
+
+    public void setStato(StatoDistributore stato) {
+        this.stato = stato;
     }
 
     public boolean isTouchScreen() {
@@ -41,7 +50,8 @@ public class DistributoreAutomatico extends Rivenditore{
     @Override
     public String toString() {
         return super.toString() + "DistributoreAutomatico{" +
-                "isTouchScreen=" + isTouchScreen +
+                "stato=" + stato +
+                ", isTouchScreen=" + isTouchScreen +
                 ", cardsAccepted=" + cardsAccepted +
                 '}';
     }

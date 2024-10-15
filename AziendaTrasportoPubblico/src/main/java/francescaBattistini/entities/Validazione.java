@@ -1,5 +1,6 @@
 package francescaBattistini.entities;
 
+import francescaBattistini.Enum.StatoBiglietto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -13,16 +14,17 @@ public class Validazione {
     private long id;
     @Column(name = "data_validazione", nullable = false)
     private LocalDate dataValidazione;
-//    @Column(name = "tipo_validazione", nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private Enum tipoValidazione;
+    @Column(name = "tipo_validazione", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatoBiglietto tipoValidazione;
 
 
     public Validazione() {}
 
-    public Validazione(long id, LocalDate dataValidazione) {
+    public Validazione(long id, LocalDate dataValidazione, StatoBiglietto tipoValidazione) {
         this.id = id;
         this.dataValidazione = dataValidazione;
+        this.tipoValidazione = tipoValidazione;
     }
 
     public long getId() {
@@ -41,12 +43,20 @@ public class Validazione {
         this.dataValidazione = dataValidazione;
     }
 
+    public StatoBiglietto getTipoValidazione() {
+        return tipoValidazione;
+    }
+
+    public void setTipoValidazione(StatoBiglietto tipoValidazione) {
+        this.tipoValidazione = tipoValidazione;
+    }
 
     @Override
     public String toString() {
         return "Validazione{" +
                 "id=" + id +
                 ", dataValidazione=" + dataValidazione +
+                ", tipoValidazione=" + tipoValidazione +
                 '}';
     }
 }
