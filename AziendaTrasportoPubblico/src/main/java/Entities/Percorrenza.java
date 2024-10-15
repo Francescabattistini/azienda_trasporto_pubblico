@@ -7,7 +7,7 @@ import java.util.UUID;
 @Table(name = "percorrenza")
 public class Percorrenza {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 private UUID id;
     @Column(name="tempoeffettivo",nullable = false)
 private Double tempoEffettivo;

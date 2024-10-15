@@ -9,7 +9,7 @@ import java.util.UUID;
 @Table(name = "abbonamento")
 public class Abbonamenti {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
    // @Enumerated(EnumType.STRING)
     //enumType settimanale/mensile

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Table(name = "tessera")
 public class Tessera {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     @Column(name="scadenza",nullable = false)
     private LocalDate scadenza;

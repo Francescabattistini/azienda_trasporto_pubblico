@@ -9,7 +9,7 @@ import java.util.UUID;
 @Table(name = "biglietto")
 public class Biglietto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     @Column(name="dataemissione",nullable = false)
     private LocalDate dataEmissione;

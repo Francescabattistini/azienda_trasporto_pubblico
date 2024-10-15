@@ -7,7 +7,7 @@ import java.util.UUID;
 @Table(name= "Veicoli")
 public class Veicolo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     @Column(name="capienza",nullable = false)
     private int capienza;
