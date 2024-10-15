@@ -2,6 +2,8 @@ package francescaBattistini.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "rivenditori")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -11,6 +13,12 @@ public abstract class Rivenditore {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String localita;
+
+    @OneToMany(mappedBy = "idRivenditore")
+    private List<Biglietto> biglietti;
+
+    @OneToMany(mappedBy = "idRivenditore")
+    private List<Abbonamento> abbonamenti;
 
     public Rivenditore() {}
 

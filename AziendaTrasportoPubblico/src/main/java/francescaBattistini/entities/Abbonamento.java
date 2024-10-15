@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "abbonamento")
-public class Abbonamenti {
+public class Abbonamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
@@ -18,10 +18,18 @@ public class Abbonamenti {
     @Column(name="data_emissione",nullable = false)
     private LocalDate dataEmissione;
 
-    public Abbonamenti() {
+    @ManyToOne
+    @JoinColumn(name = "id_tessera")
+    private Tessera idTessera;
+
+    @ManyToOne
+    @JoinColumn(name = "id_rivenditore")
+    private Rivenditore idRivenditore;
+
+    public Abbonamento() {
     }
 
-    public Abbonamenti(UUID id, PeriodoAbbonamento tipoAbbonamento, LocalDate dataEmissione) {
+    public Abbonamento(UUID id, PeriodoAbbonamento tipoAbbonamento, LocalDate dataEmissione) {
         this.id = id;
         this.tipoAbbonamento = tipoAbbonamento;
         this.dataEmissione = dataEmissione;

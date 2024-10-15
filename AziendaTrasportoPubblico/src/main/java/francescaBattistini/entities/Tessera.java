@@ -3,6 +3,7 @@ package francescaBattistini.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,13 +17,19 @@ public class Tessera {
     @Column(name="emissione",nullable = false)
     private LocalDate emissione;
 
-    public Tessera() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_utente")
+    private Utente idUtente;
 
-    public Tessera(UUID id, LocalDate scadenza, LocalDate emissione) {
-        this.id = id;
+    @OneToMany(mappedBy = "idTessera")
+    private List<Abbonamento> abbonamenti;
+
+    public Tessera() {}
+
+    public Tessera(LocalDate scadenza, LocalDate emissione, Utente utentes) {
         this.scadenza = scadenza;
         this.emissione = emissione;
+        this.idUtente = utentes;
     }
 
     public UUID getId() {

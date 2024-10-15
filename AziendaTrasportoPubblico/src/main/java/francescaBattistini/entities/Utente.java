@@ -3,11 +3,12 @@ package francescaBattistini.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "utenti")
-public class Utenti {
+public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
@@ -18,12 +19,15 @@ public class Utenti {
     @Column(name="datebirth",nullable = false)
     private LocalDate dateBirth;
 
-    public Utenti() {
+    @OneToMany(mappedBy = "idUtente")
+    private List<Biglietto> bigliettos;
 
-    }
+    @OneToMany(mappedBy = "idUtente")
+    private List<Tessera> tesseras;
 
-    public Utenti(UUID id, String name, String surname, LocalDate dateBirth) {
-        this.id = id;
+    public Utente() {}
+
+    public Utente( String name, String surname, LocalDate dateBirth) {
         this.name = name;
         this.surname = surname;
         this.dateBirth = dateBirth;
