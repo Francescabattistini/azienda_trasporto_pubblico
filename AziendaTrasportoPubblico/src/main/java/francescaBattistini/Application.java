@@ -1,14 +1,9 @@
 package francescaBattistini;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 public class Application {
-    private static final
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("AziendaTrasportoPubblico");
+    // private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AziendaTrasportoPubblico");
     public static void main(String[] args) {
-        EntityManager em = emf.createEntityManager();
+        // EntityManager em = emf.createEntityManager();
 
     }
 }
