@@ -5,19 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9ded1ce-1d47-4efb-a867-b07d8c616441" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Autobus.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Autobus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/ParcoMezzo.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/ParcoMezzo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Percorrenza.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Percorrenza.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/StatoVeicolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/StatoVeicolo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Tram.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Tram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Tratta.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Tratta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Veicolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Veicolo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Abbonamenti.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Biglietto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Tessera.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AziendaTrasportoPubblico/src/main/java/Entities/Utenti.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -44,6 +47,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2nTTmnRyDDK6WamhnrYYUul3dJI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
