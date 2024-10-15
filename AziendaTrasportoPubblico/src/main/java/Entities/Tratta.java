@@ -8,16 +8,15 @@ public class Tratta {
     private String zonaPartenza;
     private String capolinea;
     private Double tempoIpotetico;
-    private int numeroVoltePerTratta;
+
 
     public Tratta() {
     }
 
-    public Tratta(UUID id, String zonaPartenza, String capolinea, int numeroVoltePerTratta, Double tempoIpotetico) {
+    public Tratta(UUID id, String zonaPartenza, String capolinea, Double tempoIpotetico) {
         this.id = id;
         this.zonaPartenza = zonaPartenza;
         this.capolinea = capolinea;
-        this.numeroVoltePerTratta = numeroVoltePerTratta;
         this.tempoIpotetico = tempoIpotetico;
     }
 
@@ -51,13 +50,8 @@ public class Tratta {
         this.tempoIpotetico = tempoIpotetico;
     }
 
-    public int getNumeroVoltePerTratta() {
-        return numeroVoltePerTratta;
-    }
 
-    public void setNumeroVoltePerTratta(int numeroVoltePerTratta) {
-        this.numeroVoltePerTratta = numeroVoltePerTratta;
-    }
+
 
     @Override
     public String toString() {
@@ -66,7 +60,7 @@ public class Tratta {
                 ", zonaPartenza='" + zonaPartenza + '\'' +
                 ", capolinea='" + capolinea + '\'' +
                 ", tempoIpotetico=" + tempoIpotetico +
-                ", numeroVoltePerTratta=" + numeroVoltePerTratta +
+                ", numeroVoltePerTratta=" +
                 '}';
     }
 }
