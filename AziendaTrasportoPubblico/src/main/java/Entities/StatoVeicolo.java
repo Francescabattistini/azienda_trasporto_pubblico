@@ -1,13 +1,21 @@
 package Entities;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
-
+@Entity
+@Table(name = "statoveicolo")
 public class StatoVeicolo {
+    @Id
+    @GeneratedValue
     private UUID id;
+    @Column(name="inizio",nullable = false)
     private LocalDate inizio;
+    @Column(name="fine",nullable = false)
     private LocalDate fine;
+    //@Enumerated(EnumType.STRING)
     //private StatoType statotype;
     // ENUM DA AGGIUNGERE AL COSTRUTTO E SET
 

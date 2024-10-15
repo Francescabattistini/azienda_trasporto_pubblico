@@ -1,18 +1,25 @@
 package Entities;
 
-import java.util.UUID;
+import jakarta.persistence.*;
 
+import java.util.UUID;
+@Entity
+@Table(name="parcomezzo")
 public class ParcoMezzo {
+    @Id
+    @GeneratedValue
     private UUID id;
+    @Column(name="località",nullable = false)
     private String località;
-    private int capienza;
+    @Column(name="capienzaVeicolo",nullable = false)
+    private int capienzaVeicoli;
 
     public ParcoMezzo(){}
 
     public ParcoMezzo(UUID id, String località, int capienza) {
         this.id = id;
         this.località = località;
-        this.capienza = capienza;
+        this.capienzaVeicoli = capienzaVeicoli;
     }
 
     public UUID getId() {
@@ -29,12 +36,12 @@ public class ParcoMezzo {
         this.località = località;
     }
 
-    public int getCapienza() {
-        return capienza;
+    public int getCapienzaVeicoli() {
+        return capienzaVeicoli;
     }
 
-    public void setCapienza(int capienza) {
-        this.capienza = capienza;
+    public void setCapienzaVeicoli(int capienza) {
+        this.capienzaVeicoli = capienza;
     }
 
     @Override
@@ -42,7 +49,7 @@ public class ParcoMezzo {
         return "ParcoMezzo{" +
                 "id=" + id +
                 ", località='" + località + '\'' +
-                ", capienza=" + capienza +
+                ", capienza=" + capienzaVeicoli +
                 '}';
     }
 }

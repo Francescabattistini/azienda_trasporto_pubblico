@@ -1,10 +1,17 @@
 package Entities;
 
-import java.util.UUID;
+import jakarta.persistence.*;
 
+import java.util.UUID;
+@Entity
+@Table(name = "percorrenza")
 public class Percorrenza {
+    @Id
+    @GeneratedValue
 private UUID id;
+    @Column(name="tempoeffettivo",nullable = false)
 private Double tempoEffettivo;
+
 
     public Percorrenza() {
     }
