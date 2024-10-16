@@ -8,14 +8,14 @@ import java.util.UUID;
 @Table(name = "statoveicolo")
 public class StatoVeicolo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name="inizio",nullable = false)
     private LocalDate inizio;
     @Column(name="fine",nullable = false)
     private LocalDate fine;
     @Enumerated(EnumType.STRING)
-    private StatoVeicolo statotype;
+    private francescaBattistini.Enum.StatoVeicolo statotype;
 
 
     @ManyToOne
@@ -26,7 +26,7 @@ public class StatoVeicolo {
 
     }
 
-    public StatoVeicolo(UUID id, LocalDate inizio, LocalDate fine, StatoVeicolo statotype) {
+    public StatoVeicolo(UUID id, LocalDate inizio, LocalDate fine, francescaBattistini.Enum.StatoVeicolo statotype) {
         this.id = id;
         this.inizio = inizio;
         this.fine = fine;
@@ -53,11 +53,11 @@ public class StatoVeicolo {
         this.fine = fine;
     }
 
-    public StatoVeicolo getStatotype() {
+    public francescaBattistini.Enum.StatoVeicolo getStatotype() {
         return statotype;
     }
 
-    public void setStatotype(StatoVeicolo statotype) {
+    public void setStatotype(francescaBattistini.Enum.StatoVeicolo statotype) {
         this.statotype = statotype;
     }
 

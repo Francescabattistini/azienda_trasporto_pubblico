@@ -8,7 +8,7 @@ import java.util.UUID;
 @Table(name="parcomezzo")
 public class ParcoMezzo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name="località",nullable = false)
     private String località;

@@ -1,5 +1,6 @@
 package francescaBattistini.entities;
 
+import francescaBattistini.Enum.TipoUtente;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -10,14 +11,17 @@ import java.util.UUID;
 @Table(name = "utenti")
 public class Utente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name="name",nullable = false)
+    @Column(name="name")
     private String name;
-    @Column(name="surname",nullable = false)
+    @Column(name="surname")
     private String surname;
-    @Column(name="datebirth",nullable = false)
+    @Column(name="datebirth")
     private LocalDate dateBirth;
+    @Column(name = "tipologia_utente", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoUtente tipologiaUtente;
 
     @OneToMany(mappedBy = "idUtente")
     private List<Biglietto> bigliettos;
@@ -27,10 +31,19 @@ public class Utente {
 
     public Utente() {}
 
-    public Utente( String name, String surname, LocalDate dateBirth) {
+    public Utente(TipoUtente tipologiaUtente) {
+        this.tipologiaUtente = tipologiaUtente;
+    }
+
+    public Utente(String name, String surname, LocalDate dateBirth, TipoUtente tipologiaUtente) {
         this.name = name;
         this.surname = surname;
         this.dateBirth = dateBirth;
+        this.tipologiaUtente = tipologiaUtente;
+    }
+
+    public Utente getUtenteAnonimo(){
+        return new Utente(TipoUtente.ANONIMO);
     }
 
     public UUID getId() {
@@ -61,13 +74,22 @@ public class Utente {
         this.dateBirth = dateBirth;
     }
 
+    public TipoUtente getTipologiaUtente() {
+        return tipologiaUtente;
+    }
+
+    public void setTipologiaUtente(TipoUtente tipologiaUtente) {
+        this.tipologiaUtente = tipologiaUtente;
+    }
+
     @Override
     public String toString() {
-        return "Utenti{" +
+        return "Utente{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", dateBirth=" + dateBirth +
+                ", tipologiaUtente=" + tipologiaUtente +
                 '}';
     }
 }

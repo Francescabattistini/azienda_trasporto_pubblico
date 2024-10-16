@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "abbonamento")
+@Table(name = "abbonamenti")
 public class Abbonamento {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "tipo_abbonamento", nullable = false)
     @Enumerated(EnumType.STRING)
