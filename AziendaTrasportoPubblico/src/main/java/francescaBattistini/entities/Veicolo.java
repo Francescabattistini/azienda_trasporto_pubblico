@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 @Entity
 @Table(name= "Veicoli")
-public class Veicolo {
+public abstract class  Veicolo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;

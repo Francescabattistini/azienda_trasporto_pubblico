@@ -4,15 +4,19 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "tram")
-public class Tram {
+public class Tram  extends Veicolo{
     @Column(name="codice",nullable = false)
     private String codice ;
 
 
     public  Tram (){}
-    public Tram(String codice) {
+
+    public Tram(UUID id, int capienza, String modello, String codice) {
+        super(id, capienza, modello);
         this.codice = codice;
     }
 
