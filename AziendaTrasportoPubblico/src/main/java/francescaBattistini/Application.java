@@ -1,5 +1,7 @@
 package francescaBattistini;
 
+import francescaBattistini.dao.BaseDAO;
+import francescaBattistini.entities.Utente;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
