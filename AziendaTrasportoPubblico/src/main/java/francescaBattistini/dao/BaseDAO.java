@@ -69,4 +69,9 @@ public class BaseDAO {
 
     }
 
+    public <T> List<T> getTakeAllObj(Class<T> entityClass) throws NotFoundException {
+        TypedQuery<T> query = entityManager.createQuery("select T from " + entityClass.getSimpleName() + " T", entityClass);//selezionami gli elementi da 'T'che sarebbe l'alias di 'type'; cioè il nome della classe che gli assegniamo.
+        return this.executeTypedQuery(entityClass, query);
+    }
+
 }
