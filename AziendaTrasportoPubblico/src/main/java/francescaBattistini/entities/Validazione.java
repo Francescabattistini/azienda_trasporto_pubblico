@@ -19,6 +19,19 @@ public class Validazione {
     private StatoBiglietto tipoValidazione;
 
 
+    @OneToOne
+    @JoinColumn (name = "biglietto_id")
+    private Biglietto biglietto;
+
+    @ManyToOne
+    @JoinColumn(name = "id_abbonamento")
+    private Abbonamento abbonamenti;
+
+    @ManyToOne
+    @JoinColumn(name = "id_veicolo")
+    private Veicolo veicoli;
+
+
     public Validazione() {}
 
     public Validazione(long id, LocalDate dataValidazione, StatoBiglietto tipoValidazione) {

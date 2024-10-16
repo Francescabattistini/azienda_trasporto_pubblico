@@ -4,6 +4,7 @@ import francescaBattistini.Enum.PeriodoAbbonamento;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +26,9 @@ public class Abbonamento {
     @ManyToOne
     @JoinColumn(name = "id_rivenditore")
     private Rivenditore idRivenditore;
+
+    @OneToMany(mappedBy = "abbonamenti")
+    private List<Validazione> idValidazione;
 
     public Abbonamento() {
     }

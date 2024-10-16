@@ -17,6 +17,11 @@ public class StatoVeicolo {
     @Enumerated(EnumType.STRING)
     private StatoVeicolo statotype;
 
+
+    @ManyToOne
+    @JoinColumn(name = "veicolo")
+    private Veicolo id_veicolo;
+
     public StatoVeicolo() {
 
     }

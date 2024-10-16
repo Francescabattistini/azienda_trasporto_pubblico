@@ -2,6 +2,7 @@ package francescaBattistini.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name="parcomezzo")
@@ -13,6 +14,9 @@ public class ParcoMezzo {
     private String località;
     @Column(name="capienzaVeicolo",nullable = false)
     private int capienzaVeicoli;
+
+    @OneToMany(mappedBy = "id_parcoMezzo")
+    private List<Veicolo> listaVeicoli;
 
     public ParcoMezzo(){}
 

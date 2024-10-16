@@ -2,6 +2,7 @@ package francescaBattistini.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name = "tratta")
@@ -17,6 +18,9 @@ public class Tratta {
     private Double tempoIpotetico;
     @Column(name="kmtratta",nullable = false)
     private int kmTratta;
+
+    @OneToMany(mappedBy = "id_tratta")
+    private List<Percorrenza> listaPercorrenzeTratta;
 
     public Tratta() {
     }

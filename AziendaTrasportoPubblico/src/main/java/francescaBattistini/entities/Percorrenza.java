@@ -2,6 +2,7 @@ package francescaBattistini.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name = "percorrenza")
@@ -11,6 +12,15 @@ public class Percorrenza {
 private UUID id;
     @Column(name="tempoeffettivo",nullable = false)
 private Double tempoEffettivo;
+
+
+    @ManyToOne
+    @JoinColumn(name = "percorrenza_veicoli")
+    private Veicolo id_veicolo;
+
+    @ManyToOne
+    @JoinColumn(name = "percorrenza_tratta")
+    private Tratta id_tratta;
 
 
     public Percorrenza() {

@@ -2,9 +2,11 @@ package francescaBattistini.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name= "Veicoli")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class  Veicolo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +15,19 @@ public abstract class  Veicolo {
     private int capienza;
     @Column(name="modello",nullable = false)
     private String modello;
+
+    @OneToMany(mappedBy = "veicoli")
+    private List<Validazione> listaValidazioni;
+
+    @ManyToOne
+    @JoinColumn(name = "parco_mezzo")
+    private ParcoMezzo id_parcoMezzo;
+
+    @OneToMany(mappedBy = "id_veicolo")
+    private List<Percorrenza> listaPercorrenze;
+
+    @OneToMany(mappedBy = "id_veicolo")
+    private List<StatoVeicolo> id_statoVeicolo;
 
     public Veicolo(){}
 

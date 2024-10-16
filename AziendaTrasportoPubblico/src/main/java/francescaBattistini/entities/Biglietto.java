@@ -22,6 +22,9 @@ public class Biglietto {
     @JoinColumn(name = "id_rivenditore")
     private Rivenditore idRivenditore;
 
+    @OneToOne(mappedBy = "biglietto")
+    private Validazione idValidazione;
+
     public Biglietto() {}
 
     public Biglietto(LocalDate dataEmissione, Utente idUtente) {
