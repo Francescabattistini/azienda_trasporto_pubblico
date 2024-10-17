@@ -90,6 +90,15 @@ public class SottoMenuAdmin {
                     }
                     break;
                 case 6:
+                    try {
+                        List<ParcoMezzo> parcoMezzo = bs.getTakeAllObj(ParcoMezzo.class);
+                        for (ParcoMezzo pm : parcoMezzo) {
+                            System.out.println(pm);
+                        }
+                    } catch (NotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
+
 
                     break;
                 default:
