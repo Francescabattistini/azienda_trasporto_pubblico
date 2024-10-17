@@ -15,7 +15,7 @@ public class MenuUtente {
 
             System.out.println(
                     "1. hai la tessera? \n"
-                    
+
             );
 
             int command = Utils.readNumber("seleziona comando", s, 0,1);
