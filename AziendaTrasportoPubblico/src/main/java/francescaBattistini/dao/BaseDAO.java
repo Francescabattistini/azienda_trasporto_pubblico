@@ -40,7 +40,7 @@ public class BaseDAO {
     public <T> T getObjectById(Class<T> entityClass, String id) throws NotFoundException {
 
         T found = entityManager.find(entityClass, UUID.fromString(id));
-        if (found == null) throw new NotFoundException("Evento non trovato");
+        if (found == null) throw new NotFoundException(entityClass.getSimpleName() + " non trovato");
 
         return found;
     }
@@ -48,7 +48,7 @@ public class BaseDAO {
     public <T> T getObjectById(Class<T> entityClass, long id) throws Exception {
 
         T found = entityManager.find(entityClass, id);
-        if (found == null) throw new Exception("Evento non trovato");
+        if (found == null) throw new NotFoundException(entityClass.getSimpleName() + " non trovato");
 
         return found;
     }

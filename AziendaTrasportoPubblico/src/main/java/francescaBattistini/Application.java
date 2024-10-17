@@ -26,10 +26,6 @@ public class Application {
 
         BaseDAO bd = new BaseDAO(em);
 
-//        Utente utente = new Utente("Marco", "Vide", LocalDate.of(1992, 11, 13 ), TipoUtente.AMMINISTRATORE);
-
-//        bd.save(utente);
-
         System.out.println("BENBENUTO IN AUTOTRASPORTI BW6!");
         boolean eRegistrato =  Utils.readYN("Sei già registrato?", scanner);
 
