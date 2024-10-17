@@ -45,7 +45,7 @@ public class BaseDAO {
         return found;
     }
 
-    public <T> T getObjectById(Class<T> entityClass, long id) throws Exception {
+    public <T> T getObjectById(Class<T> entityClass, long id) throws NotFoundException {
 
         T found = entityManager.find(entityClass, id);
         if (found == null) throw new NotFoundException(entityClass.getSimpleName() + " non trovato");
