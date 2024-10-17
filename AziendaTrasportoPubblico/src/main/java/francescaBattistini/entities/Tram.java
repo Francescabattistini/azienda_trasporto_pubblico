@@ -15,8 +15,8 @@ public class Tram  extends Veicolo{
 
     public  Tram (){}
 
-    public Tram(UUID id, int capienza, String modello, String codice) {
-        super(id, capienza, modello);
+    public Tram( int capienza, String modello, String codice) {
+        super(capienza, modello);
         this.codice = codice;
     }
 

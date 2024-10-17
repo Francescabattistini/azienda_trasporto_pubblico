@@ -102,20 +102,20 @@ public class Utils {
 
     }
 
-    public static <T> T readEnum(String question, List<T> myEnum, Scanner s){
+    public static <T> T readEnum(String question, T[] myEnum, Scanner s){
         System.out.println(question);
-        for (int i = 0; i < myEnum.size(); i++) {
-            System.out.println( i + ". " + myEnum.get(i));
+        for (int i = 0; i < myEnum.length; i++) {
+            System.out.println( i + ". " + myEnum[i]);
         }
 
-        return myEnum.get(
+        return myEnum[
                 readNumber(
                         "Seleziona un valore:",
                         s,
                         0,
-                        myEnum.size()-1
+                        myEnum.length-1
                 )
-        );
+        ];
 
     }
 

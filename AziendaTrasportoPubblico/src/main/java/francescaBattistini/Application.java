@@ -3,6 +3,7 @@ package francescaBattistini;
 import francescaBattistini.Enum.TipoUtente;
 import francescaBattistini.Exceptions.NotFoundException;
 import francescaBattistini.dao.BaseDAO;
+import francescaBattistini.entities.Tram;
 import francescaBattistini.entities.Utente;
 import francescaBattistini.menu.MenuAdmin;
 import francescaBattistini.menu.MenuUtente;
@@ -20,17 +21,17 @@ public class Application {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AziendaTrasportoPubblico");
     private static final Scanner scanner = new Scanner(System.in);
+    public static EntityManager em = emf.createEntityManager();
+
+    public Application() {
+    }
 
     public static void main(String[] args) {
-        EntityManager em = emf.createEntityManager();
+
 
         BaseDAO bd = new BaseDAO(em);
 
-//        Utente utente = new Utente("Marco", "Vide", LocalDate.of(1992, 11, 13 ), TipoUtente.AMMINISTRATORE);
-
-//        bd.save(utente);
-
-        System.out.println("BENBENUTO IN AUTOTRASPORTI BW6!");
+        System.out.println("BENVENUTO IN AUTOTRASPORTI BW6!");
         boolean eRegistrato =  Utils.readYN("Sei già registrato?", scanner);
 
         if (eRegistrato){
@@ -52,7 +53,7 @@ public class Application {
                         } catch (NotFoundException e){
                             System.out.println(e.getMessage());
                         }
-                        break logInLoop;
+                        break;
                     case 2:
                         List<Utente> utenti =  bd.getTakeAllObj(Utente.class);
                         for(Utente u:utenti) {
@@ -79,7 +80,7 @@ public class Application {
                 String nome = Utils.readString("Inserisci il tuo nome:", scanner);
                 String cognome = Utils.readString("Inserisci il tuo cognome:", scanner);
                 LocalDate dataNascita = Utils.readDate("Inserisci la tua data di nascita: ", scanner);
-                TipoUtente tipoUtente = Utils.readEnum("Scegli il tuo ruolo: ", Arrays.stream(TipoUtente.values()).toList(), scanner);
+                TipoUtente tipoUtente = Utils.readEnum("Scegli il tuo ruolo: ", TipoUtente.values(), scanner);
                 nuovoUtente = new Utente(nome, cognome, dataNascita, tipoUtente);
 
             }
@@ -105,6 +106,5 @@ public class Application {
                 System.out.println("Utente non autorizzato! Pussa via (╬ಠ益ಠ)");
         }
     }
-
 
 }
