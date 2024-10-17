@@ -12,6 +12,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -91,7 +92,7 @@ public class Application {
         switch (u.getTipologiaUtente()){
             case TipoUtente.VIAGGIATORE:
             case TipoUtente.ANONIMO:
-                MenuUtente.menuPrincipale(u, scanner, emf);
+                MenuUtente.menuPrincipale(u, scanner,emf);
                 break;
             case TipoUtente.AMMINISTRATORE:
                 MenuAdmin.menuPrincipale(u, scanner);

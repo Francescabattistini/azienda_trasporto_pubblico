@@ -1,5 +1,6 @@
 package francescaBattistini.menu;
 
+
 import francescaBattistini.Exceptions.NotFoundException;
 import francescaBattistini.dao.BaseDAO;
 import francescaBattistini.entities.Tessera;
@@ -14,41 +15,33 @@ import java.util.UUID;
 
 public class MenuUtente {
 
-    public static void menuPrincipale(Utente u, Scanner s,  EntityManagerFactory emf){
+    public static void menuPrincipale(Utente u, Scanner s, EntityManagerFactory emf) {
         System.out.println("Benvenuto" + (u.getName() != null ? " " + u.getName() : "") + "! Sei un utente " + u.getTipologiaUtente());
 
         EntityManager em = emf.createEntityManager();
         BaseDAO baseDAO = new BaseDAO(em);
 
         menuPrincipaleMainLoop:
-        while(true){
-            if(areThereAnyTessera(baseDAO)) {
-                if(Utils.readYN("Hai la tessera?\n", s)) {
+
+      while (true) {
+// se qui ci sono tessere mi rimane nell'if e non mi entra nell'else quindi ho tolto questo tesseraEsistente
+           // if (tesseraEsistente(baseDAO))
+                if (Utils.readYN("Hai la tessera?\n", s)) {
                     handleHasTessera(s, baseDAO);
                 }
-                else {
-                    // ...
-                }
+             else{
+            if (Utils.readYN("Vuoi fare la tessera?\n", s)) {
+                createTessera(baseDAO, u);
+            } else {
+                System.out.println("Non puoi procedere senza avere una tessera!\nInterrompo il processo!!");
+                break;
             }
-            else {
-                if(Utils.readYN("Vuoi fare la tessera?\n", s)) {
-                    createTessera(baseDAO, u);
-                }
-                else {
-                    System.out.println("Non puoi procedere senza avere una tessera!\nInterrompo il processo!!");
-                    break;
-                }
-            }
+        }
 
 
-            System.out.println(
-                    "1. hai la tessera? \n"
+            int command = Utils.readNumber("seleziona comando", s, 0, 1);
 
-            );
-
-            int command = Utils.readNumber("seleziona comando", s, 0,1);
-
-            switch(command){
+            switch (command) {
                 case 0:
                     break menuPrincipaleMainLoop;
                 default:
@@ -57,31 +50,39 @@ public class MenuUtente {
         }
 
     }
+    //METODI
+
+    public static boolean isTesseraScaduta(Tessera tessera) {
+
+        return tessera.getScadenza().isBefore(LocalDate.now());
+    }
+
 
     private static void handleHasTessera(Scanner s, BaseDAO baseDAO) {
-        String numberOfTessera = Utils.readString("Dammi il numero della tua tessera:\n", s);
+        String numberOfTessera = Utils.readString("dimmi il numero della tessera \n", s);
 
         // ok confrontiamo il numero di tessera con quelli presenti nella tabella tessera del db
         try {
-            baseDAO.getObjectById(Tessera.class, (UUID.fromString(numberOfTessera)).toString());
-        }
-        catch (NotFoundException exception) {
+            baseDAO.getObjectById(Tessera.class,(UUID.fromString(numberOfTessera)).toString());
+            System.out.println("Tessera con id " + numberOfTessera + " trovata.:)");
+
+        } catch (NotFoundException exception) {
             System.out.println("Tessera con id " + numberOfTessera + " non trovata!");
+            // se non la trova o si richiede il codice o si stoppa
         }
     }
 
-    private static boolean areThereAnyTessera(BaseDAO baseDAO) {
+    private static boolean tesseraEsistente(BaseDAO baseDAO) {
         return !baseDAO.getTakeAllObj(Tessera.class).isEmpty();
     }
 
     private static void createTessera(BaseDAO baseDAO, Utente utente) {
-        Tessera newTessera = new Tessera(LocalDate.of(LocalDate.now().plusYears(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()),
-                                        LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()), utente);
+        Tessera newTessera = new Tessera(LocalDate.now().plusYears(1), LocalDate.now(), utente);
 
         baseDAO.save(newTessera);
+        System.out.println("Tessera creata con successo per l'utente: " + utente.getName());
     }
-
-
+}
     //1. Hai la tessera?
 
     //2.SI/NO
@@ -107,7 +108,7 @@ public class MenuUtente {
     //****  Se i biglietti ce li ha ma sono tutti annullati torna  punto 1.1
     //abonamento se è scaduto (rinnovalo)torna a punto 1.1
 
-    //2.0 se la tessera è scaduta o se è da fare?
+    //2.0 se la tessera è scaduta ?
     //la vuoi rinnovare?(y,n)-se fosse no esce-
     // se fosse Y
     // 2.1
@@ -115,4 +116,6 @@ public class MenuUtente {
     // 2.1 prendiamo i dati dell'utente  e gli permettiamo di avere un codice tessera che avrò validità di un anno
     // se no ESCE.
 
-}
+
+
+
