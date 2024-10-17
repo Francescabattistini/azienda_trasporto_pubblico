@@ -3,6 +3,7 @@ package francescaBattistini;
 import francescaBattistini.Enum.TipoUtente;
 import francescaBattistini.Exceptions.NotFoundException;
 import francescaBattistini.dao.BaseDAO;
+import francescaBattistini.entities.Tram;
 import francescaBattistini.entities.Utente;
 import francescaBattistini.menu.MenuAdmin;
 import francescaBattistini.menu.MenuUtente;
@@ -20,13 +21,17 @@ public class Application {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AziendaTrasportoPubblico");
     private static final Scanner scanner = new Scanner(System.in);
+    public static EntityManager em = emf.createEntityManager();
+
+    public Application() {
+    }
 
     public static void main(String[] args) {
-        EntityManager em = emf.createEntityManager();
+
 
         BaseDAO bd = new BaseDAO(em);
 
-        System.out.println("BENBENUTO IN AUTOTRASPORTI BW6!");
+        System.out.println("BENVENUTO IN AUTOTRASPORTI BW6!");
         boolean eRegistrato =  Utils.readYN("Sei già registrato?", scanner);
 
         if (eRegistrato){

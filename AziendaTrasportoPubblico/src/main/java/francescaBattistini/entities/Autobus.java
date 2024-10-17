@@ -19,8 +19,8 @@ public class Autobus extends Veicolo{
     public Autobus(){}
 
 
-    public Autobus(UUID id, int capienza, String modello, String targa) {
-        super(id, capienza, modello);
+    public Autobus(int capienza, String modello, String targa) {
+        super(capienza, modello);
         this.targa = targa;
     }
 

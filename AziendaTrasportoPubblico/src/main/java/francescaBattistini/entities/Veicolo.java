@@ -31,10 +31,13 @@ public abstract class  Veicolo {
 
     public Veicolo(){}
 
-    public Veicolo(UUID id, int capienza,String modello) {
-        this.id = id;
+    public Veicolo( int capienza,String modello) {
         this.capienza = capienza;
         this.modello = modello;
+    }
+
+    public List<StatoVeicolo> getId_statoVeicolo() {
+        return id_statoVeicolo;
     }
 
     public String getModello() {

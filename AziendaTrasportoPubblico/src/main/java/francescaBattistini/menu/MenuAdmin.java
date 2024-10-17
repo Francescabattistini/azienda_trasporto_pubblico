@@ -14,14 +14,21 @@ public class MenuAdmin {
         while (true) {
 
             System.out.println(
-                    "0. Torna al menu principale"
+                    "0. Torna al menu principale" +  System.lineSeparator() +
+                    "1. Accedi al parco mezzi" +  System.lineSeparator() +
+                    "2. Mostrami le lista degli utenti"
             );
 
-            int command = Utils.readNumber("seleziona comando", s, 0, 1);
+            int command = Utils.readNumber("seleziona comando", s, 0, 2);
 
             switch (command) {
                 case 0:
                     break menuPrincipaleMainLoop;
+                case 1:
+                    SottoMenuAdmin.MenuPrincipale(s);
+                    break ;
+                case 2:
+                    break ;
                 default:
                     System.out.println("Comando non valido");
             }
