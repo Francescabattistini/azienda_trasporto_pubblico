@@ -14,7 +14,7 @@ public class MenuAdmin {
         while (true) {
 
             System.out.println(
-                    "0. Esci dal software"
+                    "0. Torna al menu principale"
             );
 
             int command = Utils.readNumber("seleziona comando", s, 0, 1);

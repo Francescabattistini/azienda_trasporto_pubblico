@@ -48,7 +48,7 @@ public class Application {
                         } catch (NotFoundException e){
                             System.out.println(e.getMessage());
                         }
-                        break logInLoop;
+                        break;
                     case 2:
                         List<Utente> utenti =  bd.getTakeAllObj(Utente.class);
                         for(Utente u:utenti) {
@@ -75,7 +75,7 @@ public class Application {
                 String nome = Utils.readString("Inserisci il tuo nome:", scanner);
                 String cognome = Utils.readString("Inserisci il tuo cognome:", scanner);
                 LocalDate dataNascita = Utils.readDate("Inserisci la tua data di nascita: ", scanner);
-                TipoUtente tipoUtente = Utils.readEnum("Scegli il tuo ruolo: ", Arrays.stream(TipoUtente.values()).toList(), scanner);
+                TipoUtente tipoUtente = Utils.readEnum("Scegli il tuo ruolo: ", TipoUtente.values(), scanner);
                 nuovoUtente = new Utente(nome, cognome, dataNascita, tipoUtente);
 
             }
@@ -101,6 +101,5 @@ public class Application {
                 System.out.println("Utente non autorizzato! Pussa via (╬ಠ益ಠ)");
         }
     }
-
 
 }
