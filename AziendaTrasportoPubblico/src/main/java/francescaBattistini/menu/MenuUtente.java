@@ -1,8 +1,11 @@
 package francescaBattistini.menu;
 
 
+import francescaBattistini.Enum.PeriodoAbbonamento;
 import francescaBattistini.Exceptions.NotFoundException;
 import francescaBattistini.dao.BaseDAO;
+import francescaBattistini.entities.Abbonamento;
+import francescaBattistini.entities.Biglietto;
 import francescaBattistini.entities.Tessera;
 import francescaBattistini.entities.Utente;
 import francescaBattistini.utils.Utils;
@@ -10,6 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -21,54 +25,87 @@ public class MenuUtente {
         EntityManager em = emf.createEntityManager();
         BaseDAO baseDAO = new BaseDAO(em);
 
-        menuPrincipaleMainLoop:
-
-      while (true) {
-// se qui ci sono tessere mi rimane nell'if e non mi entra nell'else quindi ho tolto questo tesseraEsistente
-           // if (tesseraEsistente(baseDAO))
-                if (Utils.readYN("Hai la tessera?\n", s)) {
-                    handleHasTessera(s, baseDAO);
+        while (true) {
+            if(Utils.readYN("Hai la tessera?\n", s)) {
+                if(isTesseraScaduta(handleHasTessera(s, baseDAO))) {
+                    if(Utils.readYN("La tua tessera risulta scaduta!!\nVuoi fare un'altra tessera?\n", s)) {
+                        createTessera(baseDAO, u);
+                    }
+                    else {
+                        System.out.println("Ok allora non puoi continuare senza tessera, interrompo il processo!!");
+                        break;
+                    }
                 }
-             else{
-            if (Utils.readYN("Vuoi fare la tessera?\n", s)) {
-                createTessera(baseDAO, u);
-            } else {
-                System.out.println("Non puoi procedere senza avere una tessera!\nInterrompo il processo!!");
-                break;
+                else {
+                    // TODO: gestire se l'utenti ha già biglietti o abbonamenti associati
+                    if(hasTicketValid(baseDAO, u, em)) {
+                        handleSalitaMezzo(u, baseDAO);
+                    }
+                    // gestire qui l'attività del prendere il mezzo
+                    if(Utils.readString("Vuoi fare il biglietto o l'abbonamento?", s).equals("biglietto")) {
+                        handleBuyBiglietto(u);
+                    }
+                    else if(Utils.readString("Vuoi fare il biglietto o l'abbonamento?", s).equals("abbonamento")) {
+                        handleBuyAbbonamento(u, s);
+                    }
+                }
+            }
+            else {
+                if (Utils.readYN("Vuoi fare la tessera?\n", s)) {
+                    createTessera(baseDAO, u);
+                    break;
+                }
+                else {
+                    System.out.println("Non puoi procedere senza avere una tessera!\nInterrompo il processo!!");
+                    break;
+                }
             }
         }
-
-
-            int command = Utils.readNumber("seleziona comando", s, 0, 1);
-
-            switch (command) {
-                case 0:
-                    break menuPrincipaleMainLoop;
-                default:
-                    System.out.println("Comando non valido");
-            }
-        }
-
     }
+
+
     //METODI
+    private static void handleSalitaMezzo(Utente utente, BaseDAO baseDAO) {
+        // ricavare su che mezzo sei salito
+        // convalidare il biglietto
+    }
 
-    public static boolean isTesseraScaduta(Tessera tessera) {
-
+    private static boolean isTesseraScaduta(Tessera tessera) {
         return tessera.getScadenza().isBefore(LocalDate.now());
     }
 
+    private static void handleBuyBiglietto(Utente utente) {
+        Biglietto biglietto = new Biglietto();
+        biglietto.setIdUtente(utente);
+        biglietto.setDataEmissione(LocalDate.now());
+    }
 
-    private static void handleHasTessera(Scanner s, BaseDAO baseDAO) {
-        String numberOfTessera = Utils.readString("dimmi il numero della tessera \n", s);
+    private static void handleBuyAbbonamento(Utente utente, Scanner s) {
+        Abbonamento abbonamento = new Abbonamento();
+
+        if(Utils.readYN("Vuoi l'abbonamento mensile?", s)) {
+            abbonamento.setTipoAbbonamento(PeriodoAbbonamento.MENSILE);
+            abbonamento.setDataScadenza(LocalDate.now().plusMonths(1));
+        } else {
+            abbonamento.setTipoAbbonamento(PeriodoAbbonamento.SETTIMANLE);
+            abbonamento.setDataScadenza(LocalDate.now().plusWeeks(1));
+        }
+        abbonamento.setDataEmissione(LocalDate.now());
+    }
+
+
+    private static Tessera handleHasTessera(Scanner s, BaseDAO baseDAO) {
+        String numberOfTessera = Utils.readString("Dammi il numero della tessera:\n", s);
 
         // ok confrontiamo il numero di tessera con quelli presenti nella tabella tessera del db
         try {
-            baseDAO.getObjectById(Tessera.class,(UUID.fromString(numberOfTessera)).toString());
-            System.out.println("Tessera con id " + numberOfTessera + " trovata.:)");
-
+            Tessera tessera = baseDAO.getObjectById(Tessera.class,(UUID.fromString(numberOfTessera)).toString());
+            System.out.println("Tessera con id " + numberOfTessera + " trovata! :)");
+            return tessera;
         } catch (NotFoundException exception) {
             System.out.println("Tessera con id " + numberOfTessera + " non trovata!");
             // se non la trova o si richiede il codice o si stoppa
+            return null;
         }
     }
 
@@ -80,7 +117,15 @@ public class MenuUtente {
         Tessera newTessera = new Tessera(LocalDate.now().plusYears(1), LocalDate.now(), utente);
 
         baseDAO.save(newTessera);
-        System.out.println("Tessera creata con successo per l'utente: " + utente.getName());
+        System.out.println("Tessera creata con successo per l'utente: " + utente.getName() + " !");
+    }
+
+    private static boolean hasTicketValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
+        List<Tessera> results = em.createQuery("SELECT t FROM Tessera t WHERE t.idUtente = :idUtente")
+                        .setParameter("idUtente", utente)
+                .getResultList();
+
+        return results.stream().filter(ticket -> ticket.getScadenza().isAfter(LocalDate.now())).toList().size() > 0;
     }
 }
     //1. Hai la tessera?

@@ -19,6 +19,9 @@ public class Abbonamento {
     @Column(name="data_emissione",nullable = false)
     private LocalDate dataEmissione;
 
+    @Column(name="data_scadenza",nullable = false)
+    private LocalDate dataScadenza;
+
     @ManyToOne
     @JoinColumn(name = "id_tessera")
     private Tessera idTessera;
@@ -33,10 +36,11 @@ public class Abbonamento {
     public Abbonamento() {
     }
 
-    public Abbonamento(UUID id, PeriodoAbbonamento tipoAbbonamento, LocalDate dataEmissione) {
+    public Abbonamento(UUID id, PeriodoAbbonamento tipoAbbonamento, LocalDate dataEmissione, LocalDate dataScadenza) {
         this.id = id;
         this.tipoAbbonamento = tipoAbbonamento;
         this.dataEmissione = dataEmissione;
+        this.dataScadenza = dataScadenza;
     }
 
     public UUID getId() {
@@ -49,6 +53,14 @@ public class Abbonamento {
 
     public void setDataEmissione(LocalDate dataEmissione) {
         this.dataEmissione = dataEmissione;
+    }
+
+    public LocalDate getDataScadenza() {
+        return dataScadenza;
+    }
+
+    public void setDataScadenza(LocalDate dataScadenza) {
+        this.dataScadenza = dataScadenza;
     }
 
     public PeriodoAbbonamento getTipoAbbonamento() {
@@ -65,6 +77,7 @@ public class Abbonamento {
                 "id=" + id +
                 ", tipoAbbonamento=" + tipoAbbonamento +
                 ", dataEmissione=" + dataEmissione +
+                ", dataScadenza=" + dataScadenza +
                 '}';
     }
 }

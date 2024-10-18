@@ -12,7 +12,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,11 +37,11 @@ public class Application {
                         "0. Esci dal software"
                 );
 
-                int command = Utils.readNumber("seleziona comando", scanner, 0,2);
+                int command = Utils.readNumber("Seleziona il comando!", scanner, 0,2);
                 switch (command) {
                     case 1:
-                        String idUtente = Utils.readString("inserisci l'ID", scanner);
-                        try{
+                        String idUtente = Utils.readString("Inserisci l'ID", scanner);
+                        try {
                             Utente u = bd.getObjectById(Utente.class, idUtente);
                             menuManager(u);
                         } catch (NotFoundException e){
