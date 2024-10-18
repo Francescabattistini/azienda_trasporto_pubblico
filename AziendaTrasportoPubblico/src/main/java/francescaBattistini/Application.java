@@ -12,6 +12,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,9 +50,13 @@ public class Application {
                         }
                         break;
                     case 2:
-                        List<Utente> utenti =  bd.getTakeAllObj(Utente.class);
-                        for(Utente u:utenti) {
-                            System.out.println(u);
+                        try {
+                            List<Utente> utenti = bd.getTakeAllObj(Utente.class);
+                            for (Utente u : utenti) {
+                                System.out.println(u);
+                            }
+                        } catch (NotFoundException e) {
+                            System.out.println(e.getMessage());
                         }
                         break;
                     case 0:
