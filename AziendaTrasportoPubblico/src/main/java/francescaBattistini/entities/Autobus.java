@@ -4,19 +4,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.util.UUID;
-
 @Entity
-@Table(name="autobus")
-public class Autobus extends Veicolo{
+@Table(name = "autobus")
+public class Autobus extends Veicolo {
 
-    @Column(name="targa",nullable = false)
+    @Column(name = "targa", nullable = false)
     private String targa;
 
 
-
-
-    public Autobus(){}
+    public Autobus() {
+    }
 
 
     public Autobus(int capienza, String modello, String targa) {
@@ -34,7 +31,8 @@ public class Autobus extends Veicolo{
 
     @Override
     public String toString() {
-        return "Autobus{" +
+        return super.toString() +
+                "Autobus{" +
                 "targa='" + targa + '\'' +
                 '}';
     }

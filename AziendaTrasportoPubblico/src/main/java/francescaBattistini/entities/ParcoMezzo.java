@@ -20,8 +20,7 @@ public class ParcoMezzo {
 
     public ParcoMezzo(){}
 
-    public ParcoMezzo(UUID id, String località, int capienza) {
-        this.id = id;
+    public ParcoMezzo(String località, int capienza) {
         this.località = località;
         this.capienzaVeicoli = capienzaVeicoli;
     }

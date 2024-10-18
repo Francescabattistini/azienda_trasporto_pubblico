@@ -4,16 +4,18 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.UUID;
+
 @Entity
-@Table(name= "Veicoli")
+@Table(name = "Veicoli")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class  Veicolo {
+@NamedQuery(name = "VeicoliPerTratta", query = "SELECT v FROM Veicolo v JOIN v.listaPercorrenze p JOIN p.id_tratta t WHERE t=:trattaSelezionata")
+public abstract class Veicolo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name="capienza",nullable = false)
+    @Column(name = "capienza", nullable = false)
     private int capienza;
-    @Column(name="modello",nullable = false)
+    @Column(name = "modello", nullable = false)
     private String modello;
 
     @OneToMany(mappedBy = "veicoli")
@@ -29,11 +31,24 @@ public abstract class  Veicolo {
     @OneToMany(mappedBy = "id_veicolo")
     private List<StatoVeicolo> id_statoVeicolo;
 
-    public Veicolo(){}
+    @OneToOne
+    @JoinColumn(name = "id_tratta")
+    private Tratta idTratta;
 
-    public Veicolo( int capienza,String modello) {
+    public Veicolo() {
+    }
+
+    public Veicolo(int capienza, String modello) {
         this.capienza = capienza;
         this.modello = modello;
+    }
+
+    public ParcoMezzo getId_parcoMezzo() {
+        return id_parcoMezzo;
+    }
+
+    public void setId_parcoMezzo(ParcoMezzo id_parcoMezzo) {
+        this.id_parcoMezzo = id_parcoMezzo;
     }
 
     public List<StatoVeicolo> getId_statoVeicolo() {
@@ -69,6 +84,9 @@ public abstract class  Veicolo {
         return "Veicolo{" +
                 "id=" + id +
                 ", capienza=" + capienza +
+                ", modello='" + modello + '\'' +
+                ", id_parcoMezzo=" + id_parcoMezzo +
+                ", id_statoVeicolo=" + id_statoVeicolo +
                 '}';
     }
 }
