@@ -1,6 +1,7 @@
 package francescaBattistini.dao;
 
 import francescaBattistini.Exceptions.NotFoundException;
+import francescaBattistini.entities.Percorrenza;
 import francescaBattistini.entities.StatoVeicolo;
 import francescaBattistini.entities.Tratta;
 import francescaBattistini.entities.Veicolo;
@@ -11,8 +12,6 @@ import java.util.List;
 
 public class AdminDAO extends BaseDAO {
     public AdminDAO(EntityManager em) {
-
-
         super(em);
     }
 
@@ -27,4 +26,14 @@ public class AdminDAO extends BaseDAO {
         query.setParameter("trattaSelezionata", tr);
         return this.executeTypedQuery(Veicolo.class, query);
     }
+
+
+    public List<Percorrenza> percorrenzeDiVeicoloPerTratta(Tratta tr, Veicolo ve) throws NotFoundException {
+        TypedQuery<Percorrenza> query = entityManager.createNamedQuery("percorrenzeDiVeicoloPerTratta", Percorrenza.class);
+        query.setParameter("trattaSelezionata", tr);
+        query.setParameter("veicoloSelezionato", ve);
+        return this.executeTypedQuery(Percorrenza.class, query);
+    }
+
+
 }

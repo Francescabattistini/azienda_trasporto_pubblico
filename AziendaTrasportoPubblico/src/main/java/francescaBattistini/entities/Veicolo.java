@@ -8,7 +8,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "Veicoli")
 @Inheritance(strategy = InheritanceType.JOINED)
-//@NamedQuery(name = "VeicoliPerTratta", query = "SELECT v FROM Veicolo v JOIN Percorrenza p on v.listaPercorrenze = p.id_veicolo JOIN Tratta t on p.id_tratta = t.listaPercorrenzeTratta WHERE t=:trattaSelezionata")
 @NamedQuery(name = "VeicoliPerTratta", query = "SELECT v FROM Veicolo v JOIN v.listaPercorrenze p JOIN p.id_tratta t WHERE t=:trattaSelezionata")
 public abstract class Veicolo {
     @Id

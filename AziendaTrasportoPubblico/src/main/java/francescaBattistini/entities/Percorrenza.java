@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name = "percorrenza")
+@NamedQuery(name = "percorrenzeDiVeicoloPerTratta", query = "SELECT p FROM Percorrenza p JOIN p.id_veicolo v JOIN p.id_tratta t WHERE t=:trattaSelezionata and v=:veicoloSelezionato")
 public class Percorrenza {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-private UUID id;
+    private UUID id;
     @Column(name="tempoeffettivo",nullable = false)
-private Double tempoEffettivo;
+    private Double tempoEffettivo;
 
 
     @ManyToOne

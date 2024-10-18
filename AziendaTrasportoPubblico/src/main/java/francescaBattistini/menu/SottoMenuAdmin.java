@@ -18,20 +18,19 @@ public class SottoMenuAdmin {
 
         AdminDAO bs = new AdminDAO(Application.em);
 
-
         SottoMenu:
         while (true) {
             System.out.println(
                     "0. Ritorna al Menu precedente" + System.lineSeparator() +
                     "1. Elenco mezzi: " + System.lineSeparator() +
-                    "2. Traccia il tempo medio effettivo del percorso dei veicoli" + System.lineSeparator() +
-                    "3. Aggiungi stato veicolo: " + System.lineSeparator() +
-                    "4. Aggiungi veicolo al parco mezzi: : " + System.lineSeparator() +
-                    "5. Rimuovi veicolo al parco mezzi: " + System.lineSeparator() +
-                    "6. Elenco parco mezzi: " + System.lineSeparator() +
-                    "7. Aggiungi veicolo"
+                    "2. Aggiungi stato veicolo: " + System.lineSeparator() +
+                    "3. Aggiungi veicolo al parco mezzi: " + System.lineSeparator() +
+                    "4. Rimuovi veicolo al parco mezzi: " + System.lineSeparator() +
+                    "5. Elenco parco mezzi: " + System.lineSeparator() +
+                    "6. Aggiungi veicolo: " + System.lineSeparator() +
+                    "7. Aggiungi parco mezzi: "
             );
-            int command = Utils.readNumber("seleziona comando", scanner, 0, 6);
+            int command = Utils.readNumber("seleziona comando", scanner, 0, 7);
 
             switch (command) {
                 case 0:
@@ -58,8 +57,6 @@ public class SottoMenuAdmin {
 
                     break;
                 case 2:
-                    break;
-                case 3:
                     String idVeicolo = Utils.readString("inserisci l'ID del veicolo ", scanner);
                     try {
                         Veicolo v = bs.getObjectById(Veicolo.class, idVeicolo);
@@ -70,7 +67,7 @@ public class SottoMenuAdmin {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 4:
+                case 3:
                     String entityVeicolo = Utils.readString("inserisci l'ID del veicolo ", scanner);
                     try {
                         Veicolo v = bs.getObjectById(Veicolo.class, entityVeicolo);
@@ -85,7 +82,7 @@ public class SottoMenuAdmin {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 5:
+                case 4:
                     String v1 = Utils.readString("inserisci l'ID del veicolo ", scanner);
                     try {
                         Veicolo v = bs.getObjectById(Veicolo.class, v1);
@@ -95,7 +92,7 @@ public class SottoMenuAdmin {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 6:
+                case 5:
                     try {
                         List<ParcoMezzo> parcoMezzo = bs.getTakeAllObj(ParcoMezzo.class);
                         for (ParcoMezzo pm : parcoMezzo) {
@@ -105,7 +102,7 @@ public class SottoMenuAdmin {
                         System.out.println(e.getMessage());
                     }
                     break;
-                case 7:
+                case 6:
                     int tipoVeicolo = Utils.readNumber(
                 "Seleziona il veicolo da inserire: " + System.lineSeparator() +
                             "1. Autobus " + System.lineSeparator() +
@@ -129,11 +126,20 @@ public class SottoMenuAdmin {
                         default:
                             System.out.println("Comando non valido!");
                     }
+                    break;
+                case 7:
+                    String localita = Utils.readString("Inserisci la località: ", scanner);
+                    int capienzaParco = Utils.readNumber("Inserisci la capienza del parco: ", scanner);
+
+                    ParcoMezzo nuovoParco = new ParcoMezzo(localita, capienzaParco);
+
+                    bs.save(nuovoParco);
+
+                    break;
                 default:
                     System.out.println("Comando non valido");
             }
         }
-
 
     }
 

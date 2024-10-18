@@ -3,6 +3,7 @@ package francescaBattistini;
 import francescaBattistini.Enum.TipoUtente;
 import francescaBattistini.Exceptions.NotFoundException;
 import francescaBattistini.dao.BaseDAO;
+import francescaBattistini.entities.Autobus;
 import francescaBattistini.entities.Tram;
 import francescaBattistini.entities.Utente;
 import francescaBattistini.menu.MenuAdmin;
@@ -30,11 +31,14 @@ public class Application {
 
         BaseDAO bd = new BaseDAO(em);
 
-        Tram v = new Tram(400, "Tesla", "37100");
-        bd.save(v);
+//        Tram v = new Tram(400, "Tesla", "37100");
+//        bd.save(v);
 
         //Utente Gino = new Utente("Gino", "Pasticcio", LocalDate.now(), TipoUtente.AMMINISTRATORE);
         //bd.save(Gino);
+
+//        Autobus a = new Autobus(10, "test", "test");
+//        bd.save(a);
 
 
         System.out.println("BENVENUTO IN AUTOTRASPORTI BW6!");
