@@ -36,14 +36,15 @@ public class MenuUtente {
                 }
                 else {
                     // TODO: gestire se l'utenti ha già biglietti o abbonamenti associati
-                    if(!hasBigliettoValid(baseDAO, u, em)) {
-                        // gestire qui l'attività del comprare biglietto o abbonamento
+                    if(!hasBiglietto(baseDAO, u , em) ||!hasBigliettoValid(baseDAO, u, em) )
                         if (Utils.readString("Vuoi fare il biglietto o l'abbonamento?", s).equals("biglietto")) {
-                            handleBuyBiglietto(u);
+//                            Rivenditore r = selectRivenditore(baseDAO, s);
+                            handleBuyBiglietto(baseDAO,u);
                         } else {
-                            handleBuyAbbonamento(u, s);
+//                            Rivenditore r = selectRivenditore(baseDAO, s);
+                            handleBuyAbbonamento(u, s, baseDAO);
                         }
-                    }
+
                     handleSalitaMezzo(u, baseDAO, s);
                 }
             }
@@ -84,17 +85,20 @@ public class MenuUtente {
                 Autobus currentBus = baseDAO.getObjectById(Autobus.class, choosenBusId);
                 if(currentBus.getCapienza() > 0) {
                     List<Biglietto> bigliettos = utente.getBigliettos();
-                    if(bigliettos.size() > 0) {
+                    if(!bigliettos.isEmpty()) {
                         Validazione validazione = new Validazione();
                         validazione.setDataValidazione(LocalDate.now());
                         validazione.setTipoValidazione(StatoBiglietto.CONVALIDATO);
 
-                        bigliettos.get(0).setIdValidazione(validazione);
+                        bigliettos.getFirst().setIdValidazione(validazione);
                     }
                     else {
-                        List<Abbonamento> abbonamentos = utente.getTesseras().get(0).getAbbonamenti();
+                        List<Abbonamento> abbonamentos = utente.getTesseras().getFirst().getAbbonamenti();
                         if(abbonamentos.isEmpty()) {
                             System.out.println("Non hai ne biglietti e ne abbonamenti!!\nNon è possibile proseguire!!");
+                        }
+                        else {
+
                         }
 
                     }
@@ -110,14 +114,16 @@ public class MenuUtente {
         return tessera.getScadenza().isBefore(LocalDate.now());
     }
 
-    private static void handleBuyBiglietto(Utente utente) {
+    private static void handleBuyBiglietto(BaseDAO bd, Utente utente) {
         Biglietto biglietto = new Biglietto();
         biglietto.setIdUtente(utente);
         biglietto.setDataEmissione(LocalDate.now());
+//        biglietto.setIdRivenditore(r);
 
+        bd.save(biglietto);
     }
 
-    private static void handleBuyAbbonamento(Utente utente, Scanner s) {
+    private static void handleBuyAbbonamento(Utente utente, Scanner s, BaseDAO bd) {
         Abbonamento abbonamento = new Abbonamento();
 
         if(Utils.readYN("Vuoi l'abbonamento mensile?", s)) {
@@ -128,6 +134,9 @@ public class MenuUtente {
             abbonamento.setDataScadenza(LocalDate.now().plusWeeks(1));
         }
         abbonamento.setDataEmissione(LocalDate.now());
+//        abbonamento.setIdRivenditore(r);
+
+        bd.save(abbonamento);
     }
 
 
@@ -157,12 +166,20 @@ public class MenuUtente {
         System.out.println("Tessera creata con successo per l'utente: " + utente.getName() + " !");
     }
 
-    private static boolean hasBigliettoValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
-        List<Biglietto> results = em.createQuery("SELECT b FROM Biglietto b WHERE b.idUtente:idUtente")
-                        .setParameter("idUtente", utente)
+    private static boolean hasBiglietto(BaseDAO baseDAO, Utente utente, EntityManager em) {
+        List<Biglietto> results = em.createQuery("SELECT b FROM Biglietto b WHERE b.idUtente = :idUtente")
+                .setParameter("idUtente", utente)
                 .getResultList();
 
         return results.size() > 0;
+    }
+
+    private static boolean hasBigliettoValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
+        List<Biglietto> results = em.createQuery("SELECT b FROM Biglietto b join b.idValidazione WHERE b.idUtente = :idUtente")
+                        .setParameter("idUtente", utente)
+                .getResultList();
+
+        return results.size() == 0;
     }
 
     private static boolean hasAbbonamentoValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
@@ -174,6 +191,19 @@ public class MenuUtente {
 
         return results.size() > 0;
     }
+
+    private static Rivenditore selectRivenditore (BaseDAO bs, Scanner s){
+        List<Rivenditore> rivenditores = bs.getTakeAllObj(Rivenditore.class);
+
+        for(int i = 0; i < rivenditores.size(); i++){
+            System.out.println(i + ". " + rivenditores.get(i));
+        }
+
+        int selectedRivenditore = Utils.readNumber("seleziona un rivenditore", s, 0, rivenditores.size() -1);
+
+        return rivenditores.get(selectedRivenditore);
+    }
+
 }
     //1. Hai la tessera?
 

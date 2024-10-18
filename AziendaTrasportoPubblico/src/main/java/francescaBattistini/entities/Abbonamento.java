@@ -71,6 +71,14 @@ public class Abbonamento {
         this.tipoAbbonamento = tipoAbbonamento;
     }
 
+    public Rivenditore getIdRivenditore() {
+        return idRivenditore;
+    }
+
+    public void setIdRivenditore(Rivenditore idRivenditore) {
+        this.idRivenditore = idRivenditore;
+    }
+
     @Override
     public String toString() {
         return "Abbonamenti{" +
