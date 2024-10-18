@@ -97,7 +97,7 @@ public class Application {
         switch (u.getTipologiaUtente()){
             case TipoUtente.VIAGGIATORE:
             case TipoUtente.ANONIMO:
-                MenuUtente.menuPrincipale(u, scanner);
+                MenuUtente.menuPrincipale(u, scanner,emf);
                 break;
             case TipoUtente.AMMINISTRATORE:
                 MenuAdmin.menuPrincipale(u, scanner);
