@@ -2,12 +2,10 @@ package francescaBattistini.menu;
 
 
 import francescaBattistini.Enum.PeriodoAbbonamento;
+import francescaBattistini.Enum.StatoBiglietto;
 import francescaBattistini.Exceptions.NotFoundException;
 import francescaBattistini.dao.BaseDAO;
-import francescaBattistini.entities.Abbonamento;
-import francescaBattistini.entities.Biglietto;
-import francescaBattistini.entities.Tessera;
-import francescaBattistini.entities.Utente;
+import francescaBattistini.entities.*;
 import francescaBattistini.utils.Utils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -38,16 +36,15 @@ public class MenuUtente {
                 }
                 else {
                     // TODO: gestire se l'utenti ha già biglietti o abbonamenti associati
-                    if(hasTicketValid(baseDAO, u, em)) {
-                        handleSalitaMezzo(u, baseDAO);
+                    if(!hasBigliettoValid(baseDAO, u, em)) {
+                        // gestire qui l'attività del comprare biglietto o abbonamento
+                        if (Utils.readString("Vuoi fare il biglietto o l'abbonamento?", s).equals("biglietto")) {
+                            handleBuyBiglietto(u);
+                        } else {
+                            handleBuyAbbonamento(u, s);
+                        }
                     }
-                    // gestire qui l'attività del prendere il mezzo
-                    if(Utils.readString("Vuoi fare il biglietto o l'abbonamento?", s).equals("biglietto")) {
-                        handleBuyBiglietto(u);
-                    }
-                    else if(Utils.readString("Vuoi fare il biglietto o l'abbonamento?", s).equals("abbonamento")) {
-                        handleBuyAbbonamento(u, s);
-                    }
+                    handleSalitaMezzo(u, baseDAO, s);
                 }
             }
             else {
@@ -65,9 +62,48 @@ public class MenuUtente {
 
 
     //METODI
-    private static void handleSalitaMezzo(Utente utente, BaseDAO baseDAO) {
+    private static void handleSalitaMezzo(Utente utente, BaseDAO baseDAO, Scanner s) {
         // ricavare su che mezzo sei salito
         // convalidare il biglietto
+        if(Utils.readString("Vuoi salire in un bus o in un tram?", s).equals("bus")) {
+            handleSalitaBus(baseDAO, s, utente);
+        }
+    }
+
+    private static void handleSalitaBus(BaseDAO baseDAO, Scanner s, Utente utente) {
+        List<Autobus> autobuses = baseDAO.getTakeAllObj(Autobus.class);
+        if(autobuses.isEmpty()) {
+            System.out.println("Non ci sono bus disponibili!");
+        }
+        else {
+            System.out.println("I bus disponibili sono:\n");
+            autobuses.stream().forEach(autobus -> System.out.println("E' presente il bus con id: " + autobus.getId()));
+            String choosenBusId = Utils.readString("Inserisci l'id del bus che desideri: ", s);
+
+            try {
+                Autobus currentBus = baseDAO.getObjectById(Autobus.class, choosenBusId);
+                if(currentBus.getCapienza() > 0) {
+                    List<Biglietto> bigliettos = utente.getBigliettos();
+                    if(bigliettos.size() > 0) {
+                        Validazione validazione = new Validazione();
+                        validazione.setDataValidazione(LocalDate.now());
+                        validazione.setTipoValidazione(StatoBiglietto.CONVALIDATO);
+
+                        bigliettos.get(0).setIdValidazione(validazione);
+                    }
+                    else {
+                        List<Abbonamento> abbonamentos = utente.getTesseras().get(0).getAbbonamenti();
+                        if(abbonamentos.isEmpty()) {
+                            System.out.println("Non hai ne biglietti e ne abbonamenti!!\nNon è possibile proseguire!!");
+                        }
+
+                    }
+                }
+            }
+            catch(NotFoundException exception) {
+                System.out.println("Il bus con id: " + choosenBusId + " non esiste nel db!!");
+            }
+        }
     }
 
     private static boolean isTesseraScaduta(Tessera tessera) {
@@ -78,6 +114,7 @@ public class MenuUtente {
         Biglietto biglietto = new Biglietto();
         biglietto.setIdUtente(utente);
         biglietto.setDataEmissione(LocalDate.now());
+
     }
 
     private static void handleBuyAbbonamento(Utente utente, Scanner s) {
@@ -120,12 +157,22 @@ public class MenuUtente {
         System.out.println("Tessera creata con successo per l'utente: " + utente.getName() + " !");
     }
 
-    private static boolean hasTicketValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
-        List<Tessera> results = em.createQuery("SELECT t FROM Tessera t WHERE t.idUtente = :idUtente")
+    private static boolean hasBigliettoValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
+        List<Biglietto> results = em.createQuery("SELECT b FROM Biglietto b WHERE b.idUtente:idUtente")
                         .setParameter("idUtente", utente)
                 .getResultList();
 
-        return results.stream().filter(ticket -> ticket.getScadenza().isAfter(LocalDate.now())).toList().size() > 0;
+        return results.size() > 0;
+    }
+
+    private static boolean hasAbbonamentoValid(BaseDAO baseDAO, Utente utente, EntityManager em) {
+        List<Tessera> tesseras = utente.getTesseras();
+
+        List<Abbonamento> results = em.createQuery("SELECT a FROM Abbonamento a JOIN a.idTessera t JOIN t.idUtente u WHERE a.dataScadenza > GETDATE() AND u = :utente")
+                .setParameter("utente", utente)
+                .getResultList();
+
+        return results.size() > 0;
     }
 }
     //1. Hai la tessera?

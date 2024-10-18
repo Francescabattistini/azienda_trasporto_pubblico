@@ -82,6 +82,22 @@ public class Utente {
         this.tipologiaUtente = tipologiaUtente;
     }
 
+    public List<Biglietto> getBigliettos() {
+        return bigliettos;
+    }
+
+    public void setBigliettos(List<Biglietto> bigliettos) {
+        this.bigliettos = bigliettos;
+    }
+
+    public List<Tessera> getTesseras() {
+        return tesseras;
+    }
+
+    public void setTesseras(List<Tessera> tesseras) {
+        this.tesseras = tesseras;
+    }
+
     @Override
     public String toString() {
         return "Utente{" +

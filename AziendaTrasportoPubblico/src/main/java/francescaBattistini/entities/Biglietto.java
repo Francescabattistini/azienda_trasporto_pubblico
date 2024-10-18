@@ -56,6 +56,22 @@ public class Biglietto {
         this.idUtente = idUtente;
     }
 
+    public Rivenditore getIdRivenditore() {
+        return idRivenditore;
+    }
+
+    public void setIdRivenditore(Rivenditore idRivenditore) {
+        this.idRivenditore = idRivenditore;
+    }
+
+    public Validazione getIdValidazione() {
+        return idValidazione;
+    }
+
+    public void setIdValidazione(Validazione idValidazione) {
+        this.idValidazione = idValidazione;
+    }
+
     @Override
     public String toString() {
         return "Biglietto{" +

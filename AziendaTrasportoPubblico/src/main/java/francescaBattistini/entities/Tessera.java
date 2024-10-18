@@ -53,6 +53,26 @@ public class Tessera {
         this.emissione = emissione;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Utente getIdUtente() {
+        return idUtente;
+    }
+
+    public void setIdUtente(Utente idUtente) {
+        this.idUtente = idUtente;
+    }
+
+    public List<Abbonamento> getAbbonamenti() {
+        return abbonamenti;
+    }
+
+    public void setAbbonamenti(List<Abbonamento> abbonamenti) {
+        this.abbonamenti = abbonamenti;
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
