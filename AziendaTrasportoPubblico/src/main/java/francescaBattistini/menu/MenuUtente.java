@@ -11,6 +11,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -72,7 +73,12 @@ public class MenuUtente {
     }
 
     private static void handleSalitaBus(BaseDAO baseDAO, Scanner s, Utente utente) {
-        List<Autobus> autobuses = baseDAO.getTakeAllObj(Autobus.class);
+        List<Autobus> autobuses = null;
+        try {
+            autobuses = baseDAO.getTakeAllObj(Autobus.class);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
         if(autobuses.isEmpty()) {
             System.out.println("Non ci sono bus disponibili!");
         }
@@ -156,7 +162,14 @@ public class MenuUtente {
     }
 
     private static boolean tesseraEsistente(BaseDAO baseDAO) {
-        return !baseDAO.getTakeAllObj(Tessera.class).isEmpty();
+        List<Tessera> t = new ArrayList<>();
+        try {
+            t= baseDAO.getTakeAllObj(Tessera.class);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return !t.isEmpty();
     }
 
     private static void createTessera(BaseDAO baseDAO, Utente utente) {
@@ -193,7 +206,12 @@ public class MenuUtente {
     }
 
     private static Rivenditore selectRivenditore (BaseDAO bs, Scanner s){
-        List<Rivenditore> rivenditores = bs.getTakeAllObj(Rivenditore.class);
+        List<Rivenditore> rivenditores = null;
+        try {
+            rivenditores = bs.getTakeAllObj(Rivenditore.class);
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
         for(int i = 0; i < rivenditores.size(); i++){
             System.out.println(i + ". " + rivenditores.get(i));

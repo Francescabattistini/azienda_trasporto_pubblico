@@ -20,9 +20,9 @@ public class Application {
 
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("AziendaTrasportoPubblico");
     private static final Scanner scanner = new Scanner(System.in);
+    public static final EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) {
-        EntityManager em = emf.createEntityManager();
 
         BaseDAO bd = new BaseDAO(em);
 
