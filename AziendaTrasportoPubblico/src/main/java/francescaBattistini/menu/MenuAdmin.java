@@ -14,9 +14,9 @@ public class MenuAdmin {
         while (true) {
 
             System.out.println(
-                    "0. Torna al menu principale" +  System.lineSeparator() +
-                    "1. Accedi al parco mezzi" +  System.lineSeparator() +
-                    "2. Mostrami le lista degli utenti"
+                    "0. Torna al menu principale: " + System.lineSeparator() +
+                            "1. Accedi al parco mezzi: " + System.lineSeparator() +
+                            "2. Statistiche tratte: "
             );
 
             int command = Utils.readNumber("seleziona comando", s, 0, 2);
@@ -26,9 +26,10 @@ public class MenuAdmin {
                     break menuPrincipaleMainLoop;
                 case 1:
                     SottoMenuAdmin.MenuPrincipale(s);
-                    break ;
+                    break;
                 case 2:
-                    break ;
+                    SottoMenuStatistiche.MenuPrincipale(s);
+                    break;
                 default:
                     System.out.println("Comando non valido");
             }

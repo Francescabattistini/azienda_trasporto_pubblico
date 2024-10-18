@@ -4,33 +4,37 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.UUID;
+
 @Entity
 @Table(name = "tratta")
 public class Tratta {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(name="zonaPartenza",nullable = false)
+    @Column(name = "zonaPartenza", nullable = false)
     private String zonaPartenza;
-    @Column(name="capoilinea",nullable = false)
+    @Column(name = "capoilinea", nullable = false)
     private String capolinea;
-    @Column(name="tempoipotetico",nullable = false)
+    @Column(name = "tempoipotetico", nullable = false)
     private Double tempoIpotetico;
-    @Column(name="kmtratta",nullable = false)
+    @Column(name = "kmtratta", nullable = false)
     private int kmTratta;
 
     @OneToMany(mappedBy = "id_tratta")
     private List<Percorrenza> listaPercorrenzeTratta;
 
+    @OneToOne(mappedBy = "idTratta")
+    private Veicolo idVeicolo;
+
     public Tratta() {
     }
 
-    public Tratta(UUID id, String zonaPartenza, String capolinea, Double tempoIpotetico,int kmTratta) {
+    public Tratta(UUID id, String zonaPartenza, String capolinea, Double tempoIpotetico, int kmTratta) {
         this.id = id;
         this.zonaPartenza = zonaPartenza;
         this.capolinea = capolinea;
         this.tempoIpotetico = tempoIpotetico;
-        this.kmTratta=kmTratta;
+        this.kmTratta = kmTratta;
     }
 
     public UUID getId() {
@@ -70,8 +74,6 @@ public class Tratta {
     }
 
 
-
-
     @Override
     public String toString() {
         return "Tratta{" +
@@ -79,7 +81,7 @@ public class Tratta {
                 ", zonaPartenza='" + zonaPartenza + '\'' +
                 ", capolinea='" + capolinea + '\'' +
                 ", tempoIpotetico=" + tempoIpotetico +
-                ", numeroVoltePerTratta=" +kmTratta+
+                ", numeroVoltePerTratta=" + kmTratta +
                 '}';
     }
 }
