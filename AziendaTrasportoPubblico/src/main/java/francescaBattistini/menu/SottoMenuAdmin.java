@@ -116,12 +116,12 @@ public class SottoMenuAdmin {
                     int capienza = Utils.readNumber("Inserisci la capienza:",scanner);
                     String modello = Utils.readString("Inserisci il modello:", scanner);
                     switch (tipoVeicolo){
-                        case 1:
+                        case 1: // AUTOBUS
                             String targa = Utils.readString("Inserisci la targa", scanner);
                             Autobus nuovoBus = new Autobus(capienza, modello, targa);
                             bs.save(nuovoBus);
                             break;
-                        case 2:
+                        case 2: // TRAM
                             String codice = Utils.readString("Inserisci il codice del tram:", scanner);
                             Tram nuovoTram = new Tram(capienza, modello, codice);
                             bs.save(nuovoTram);
